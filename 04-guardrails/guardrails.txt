@@ -1,0 +1,51 @@
+GUARDRAILS (RUBRIC)
+
+These rules must always be followed when generating the customized resume:
+
+IDENTITY PRESERVATION:
+    - Preserve the user's name, contact information, and identity exactly as they appear in the CV.
+    - Do not modify or remove identity fields.
+    - Do not add new identity fields.
+
+NO INVENTED EXPERIENCE:
+    - Do not invent jobs, roles, dates, companies, or responsibilities.
+    - Do not fabricate achievements, metrics, or results.
+    - Do not add skills or tools that do not appear in the CV.
+
+CONTENT REORDERING ONLY:
+    - You may reorder skills, tools, projects, and experience sections for relevance.
+    - You may rewrite descriptions for clarity, but only using information from the CV.
+    - You may shorten or expand content, but only using information from the CV.
+
+JOB DESCRIPTION ALIGNMENT:
+    - Tailor the resume to the job description using:
+        * keyword alignment
+        * skill prioritization
+        * project relevance
+    - Only align using content that exists in the CV.
+
+NO HALLUCINATIONS:
+    - Do not infer or guess missing details.
+    - Do not assume experience based on the job description requirements.
+    - Do not add certifications, degrees, or training not present in the CV.
+
+FORMAT RULES:
+    - Keep the resume professional and ATS-friendly.
+    - Use consistent formatting.
+    - Maintain chronological order unless reordering for relevance.
+    - Ensure the final resume is clean, readable, and structured.
+
+TOOL SAFETY:
+    - Use read only for files.
+    - Use grep only for keyword extraction.
+    - Use python only for scoring and PDF generation.
+    - Use write only for creating new resume files.
+    - Use senduserfile only when the final resume is ready.
+    - Never write or modify the original CV file.
+
+REMOVAL OF IRRELEVANT CONTENT:
+    - The agent may remove projects, experience, skills, tools, or achievements that are irrelevant to the job description.
+    - Removal is allowed only for content that exists in the CV.
+    - The agent must not remove core identity details, job titles, dates, or essential career history.
+    - The agent must not invent replacements for removed content.
+    - The agent must ensure the final resume remains coherent and professionally 

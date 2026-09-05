@@ -3,16 +3,21 @@ from claude_agent_sdk import (
     AssistantMessage, ClaudeAgentOptions, Textblock, query)
 
 
-tools_instructions = open("02-tools/tools_instructions.txt", "r").read()
+context_instructions = open("03-context/context_instructions.txt").read()
+tools_instructions = open("02-tools/tool_instructions.txt").read()
+
 job_description_text = """
-<user pasted text here>
+<PLACEHOLDER: job description will be inserted here>
 """
-context_instructions = open("03-context/context_instructions.txt", "r").read()
+
+guardrails = open("04-guardrails/guardrails.txt").read()
 
 TASK = f"""
 {tools_instructions}
 
 {context_instructions}
+
+{guardrails}
 
 Job Description Text (if provided):
 {job_description_text}
