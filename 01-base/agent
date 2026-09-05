@@ -1,0 +1,59 @@
+import asyncio
+from claude_agent_sdk import (
+    AssistantMessage, ClaudeAgentOptions, Textblock, query)
+
+
+tools_instructions = open("tools/tools_instructions.txt", "r").read()
+job_description = """
+<user pasted text here>
+"""
+
+TASK = f"""
+{tools_instructions}
+
+Job Description:
+{job_description}
+
+You are a resume-fitting agent. Your job is to:
+1. Read the user's CV file.
+2. Read the job description, it may be provided as a plain text, or as a file.
+3. Extract keywords and requirements from the job description.
+4. Compare them with the user's CV.
+5. Calculate a percentage match and return it to the user.
+6.  Generate a customized resume:
+    - same name and contact info
+    - new summary tailored to the job
+    - reorder/remove-if-not-related skills, tools, projects, based on relevance
+    - use ONLY content from the real CV
+    - do NOT invent experience or skills
+7. Write the new resume into a file named according to the job title and the
+    company name, e.g., "Software_Engineer_Acme_Corp_Resume.txt".
+8. Convert the new resume into a PDF file named according to the job title and
+    the company name, e.g.,
+    "Software_Engineer_Acme_Corp_Resume.pdf".
+9. Send the final resume pdf file back to the user.
+"""
+
+
+async def main():
+    options = ClaudeAgentOptions(
+        tools=[
+            "agent",
+            "read",
+            "write",
+            "grep",
+            "senduserfile",
+            "sendmessage",
+            "list",
+            "python",
+        ],
+        setting_source=[],
+    )
+
+    async for msg in query(prompt=TASK, options=options):
+        if isinstance(msg, AssistantMessage):
+            for block in msg.content:
+                if isinstance(block, Textblock):
+                    print(block.text)
+
+asyncio.run(main())

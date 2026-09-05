@@ -1,0 +1,46 @@
+TOOLS USAGE INSTRUCTIONS:
+
+You have access to the following tools. Use them exactly as described:
+
+1.read:
+    - Purpose: Read the user's CV file.
+    - Note?: The job description may be provided as text, not a file.
+    - Use read only for file-based inputs.
+    - Example: read("cv.pdf")
+
+2.write:
+    - Purpose: Create new files such as rewritten resumes or PDFs.
+    - Use to save generated content.
+    - Example: write("Software_Engineer_Acme_Corp_Resume.txt", "New resume content here")
+
+3. grep:
+    - Purpose: Extract keywords, skills, and requirements from either:
+        * job description text
+        * job description file (if provided)
+    - Use for keywords matching and requirement detection. 
+    - Example (file): grep("job_description.txt", "Python")
+    - Example (text): grep(job_description_text, "Python")
+
+4. senduserfile:
+    - Purpose: Send the final resume PDF file back to the user.
+    - Use only when the finalk output is ready. 
+    - Example: senduserfile("Software_Engineer_Acme_Corp_Resume.pdf")
+
+5. sendmessage:
+    - Purpose: Communicate with the user (fit percentage, instructions, confirmations).
+    - Example: sendmessage("Your resume has been customized and is ready for download.")
+
+6. list:
+    - Purpose: Check which files exists in the workplace.
+    - Use before reading or writing to verify file presence.
+    - Example: list()
+
+7. python:
+    - Purpose: Run Python code for scoring, parsing, keyword extraction, and PDF generation.
+    - Use for calculations or structured logic.
+    - Example: python("code_here")
+
+8. agent: 
+    - Purpose: Create subagents for modular tasks (scoring_agent, rewriting_agent).
+    - Use to separate logic cleanly.
+    - Example: agent("scoring_agent", "instructions_here")
