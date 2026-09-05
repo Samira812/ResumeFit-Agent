@@ -3,14 +3,17 @@ from claude_agent_sdk import (
     AssistantMessage, ClaudeAgentOptions, Textblock, query)
 
 
-context_instructions = open("03-context/context_instructions.txt").read()
 tools_instructions = open("02-tools/tool_instructions.txt").read()
+
+context_instructions = open("03-context/context_instructions.txt").read()
+
+guardrails = open("04-guardrails/guardrails.txt").read()
+
+scoring_agent_instructions = open("05-subagents/scoring_agent.txt").read()
 
 job_description_text = """
 <PLACEHOLDER: job description will be inserted here>
 """
-
-guardrails = open("04-guardrails/guardrails.txt").read()
 
 TASK = f"""
 {tools_instructions}
@@ -18,6 +21,9 @@ TASK = f"""
 {context_instructions}
 
 {guardrails}
+
+SCORING AGENT INSTRUCTIONS:
+{scoring_agent_instructions}
 
 Job Description Text (if provided):
 {job_description_text}
@@ -31,9 +37,14 @@ Your job is to:
 2. Detect whether a job description file exists.
 3. If a file exists, read it.
 4. If no file exists, use the job_description_text.
-5. Extract keywords and requirements from the job description. 
+5. Extract keywords and requirements from the job description.
 6. Compare them with the user's CV.
 7. Calculate a percentage match and return it to the user.
+When scoring is needed:
+- Create a subagent named "scoring_agent".
+- Pass cv_text and job_description_text to it.
+- Wait for the scoring_agent to return JSON scoring data.
+- Use this data in the rewriting_agent.
 8. Generate a customized resume using only verified CV content.
 9. Write the new resume into a file named according to the job title and the
     company name, e.g., "Software_Engineer_Acme_Corp_Resume.txt".
