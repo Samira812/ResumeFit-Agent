@@ -3,10 +3,10 @@ TOOLS USAGE INSTRUCTIONS:
 You have access to the following tools. Use them exactly as described:
 
 1.read:
-    - Purpose: Read the user's CV file.
-    - Note?: The job description may be provided as text, not a file.
+    - Purpose: Read the user's CV file and job description file (if provided).
     - Use read only for file-based inputs.
     - Example: read("cv.pdf")
+    - Example: read("job_description.txt")
 
 2.write:
     - Purpose: Create new files such as rewritten resumes or PDFs.
@@ -15,8 +15,8 @@ You have access to the following tools. Use them exactly as described:
 
 3. grep:
     - Purpose: Extract keywords, skills, and requirements from either:
-        * job description text
-        * job description file (if provided)
+        * job_description_text (plain text)
+        * job description file content
     - Use for keywords matching and requirement detection. 
     - Example (file): grep("job_description.txt", "Python")
     - Example (text): grep(job_description_text, "Python")

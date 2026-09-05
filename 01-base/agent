@@ -3,41 +3,45 @@ from claude_agent_sdk import (
     AssistantMessage, ClaudeAgentOptions, Textblock, query)
 
 
-tools_instructions = open("tools/tools_instructions.txt", "r").read()
-job_description = """
+tools_instructions = open("02-tools/tools_instructions.txt", "r").read()
+job_description_text = """
 <user pasted text here>
 """
+context_instructions = open("03-context/context_instructions.txt", "r").read()
 
 TASK = f"""
 {tools_instructions}
 
-Job Description:
-{job_description}
+{context_instructions}
 
-You are a resume-fitting agent. Your job is to:
+Job Description Text (if provided):
+{job_description_text}
+
+You are a resume-fitting agent. The job description is provided above. You will be given a user's CV file. Your task is to analyze the job description may be provided as:
+1. Plain text (job_description_text)
+2. A file uploaded by the user.
+
+Your job is to:
 1. Read the user's CV file.
-2. Read the job description, it may be provided as a plain text, or as a file.
-3. Extract keywords and requirements from the job description.
-4. Compare them with the user's CV.
-5. Calculate a percentage match and return it to the user.
-6.  Generate a customized resume:
-    - same name and contact info
-    - new summary tailored to the job
-    - reorder/remove-if-not-related skills, tools, projects, based on relevance
-    - use ONLY content from the real CV
-    - do NOT invent experience or skills
-7. Write the new resume into a file named according to the job title and the
+2. Detect whether a job description file exists.
+3. If a file exists, read it.
+4. If no file exists, use the job_description_text.
+5. Extract keywords and requirements from the job description. 
+6. Compare them with the user's CV.
+7. Calculate a percentage match and return it to the user.
+8. Generate a customized resume using only verified CV content.
+9. Write the new resume into a file named according to the job title and the
     company name, e.g., "Software_Engineer_Acme_Corp_Resume.txt".
-8. Convert the new resume into a PDF file named according to the job title and
+10. Convert the new resume into a PDF file named according to the job title and
     the company name, e.g.,
     "Software_Engineer_Acme_Corp_Resume.pdf".
-9. Send the final resume pdf file back to the user.
+11. Send the final resume pdf file back to the user.
 """
 
 
 async def main():
     options = ClaudeAgentOptions(
-        tools=[
+        allowed_tools=[
             "agent",
             "read",
             "write",

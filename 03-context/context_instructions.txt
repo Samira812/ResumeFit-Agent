@@ -1,0 +1,28 @@
+CONTEXT HANDLING INSTRUCTIONS
+
+The agent receives two  types of input:
+
+1. CV File:
+    - The user uploads a CV file (PDF or text).
+    - Use the read tool to load its content.
+    - Example: read("cv.pdf")
+
+2. Job Description:
+    The job description may be  provided in one of two ways:
+
+    A. Plain Text:
+        - The user pastes the job description directly.
+        - Treat this text as job_description_text.
+        - Do NOT use read for this case.
+
+    B. File Upload:
+        - The user uploads a job description file.
+        - Use read to load its content.
+        - Example: read("job_description.txt")
+
+Rules:
+    - Always check with list() to see if a job description file exists.
+    - If a file exists, read it.
+    - If no file exists, use job_description_text.
+    - Use grep and python on whichever version is available.
+    - Never invent content; only use what appears in the CV file.        
