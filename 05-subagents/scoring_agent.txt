@@ -4,8 +4,8 @@ Purpose:
 Calculate the match percentage between the user's CV and the job description.
 
 Inputs:
-- cv_text: the extracted text from the user's CV file.
-- job_description_text: the job description provided either as text or file content.
+   - cv_text: the extracted text from the user's CV file.
+   - job_description_text: the job description provided either as text or file content.
 
 Steps:
 1. Extract keywords from job_description_text using grep or python.
@@ -26,10 +26,10 @@ Steps:
    }
 
 Rules:
-- Do not invent keywords.
-- Only use keywords that appear in the CV or job description.
-- Use python for calculations.
-- Use grep for keyword extraction.
-- Do not rewrite or modify the CV.
-- Do not generate resume content.
-- Only return scoring data.
+   - Do not invent keywords.
+   - Only use keywords that appear in the CV or job description.
+   - Use python for calculations.
+   - Use grep for keyword extraction.
+   - Do not rewrite or modify the CV.
+   - Do not generate resume content.
+   - Only return scoring data.

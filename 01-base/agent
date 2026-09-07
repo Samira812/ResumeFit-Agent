@@ -13,6 +13,8 @@ scoring_agent_instructions = open("05-subagents/scoring_agent.txt").read()
 
 rewriting_agent_instructions = open("05-subagents/rewriting_agent.txt").read()
 
+pdf_agent_instructions = open("05-subagents/pdf_agent.txt").read()
+
 job_description_text = """
 <PLACEHOLDER: job description will be inserted here>
 """
@@ -30,33 +32,45 @@ SCORING AGENT INSTRUCTIONS:
 REWRITING AGENT INSTRUCTIONS:
 {rewriting_agent_instructions}
 
+PDF AGENT INSTRUCTIONS:
+{pdf_agent_instructions}
+
 Job Description Text (if provided):
 {job_description_text}
 
-You are a resume-fitting agent. The job description is provided above. You will be given a user's CV file. Your task is to analyze the job description may be provided as:
+You are a resume-fitting agent. The job description may be provided as:
 1. Plain text (job_description_text)
-2. A file uploaded by the user.
+2. A file uploaded by the user
 
-Your job is to:
+Your responsibilities:
+
 1. Read the user's CV file.
 2. Detect whether a job description file exists.
 3. If a file exists, read it.
 4. If no file exists, use the job_description_text.
+
 5. Extract keywords and requirements from the job description.
 6. Compare them with the user's CV.
-7. Calculate a percentage match and return it to the user.
-When scoring is needed:
-- Create a subagent named "scoring_agent".
-- Pass cv_text and job_description_text to it.
-- Wait for the scoring_agent to return JSON scoring data.
-- Use this data in the rewriting_agent.
-8. Generate a customized resume using only verified CV content.
-9. Write the new resume into a file named according to the job title and the
-    company name, e.g., "Software_Engineer_Acme_Corp_Resume.txt".
-10. Convert the new resume into a PDF file named according to the job title and
-    the company name, e.g.,
-    "Software_Engineer_Acme_Corp_Resume.pdf".
-11. Send the final resume pdf file back to the user.
+
+7. Create a subagent named "scoring_agent".
+    - Pass cv_text and job_description_text to it.
+    - Receive structured scoring_data (JSON).
+
+8. Create a subagent named "rewriting_agent".
+    - Pass cv_text, job_description_text, and scoring_data to it.
+    - Receive final resume_text.
+
+9. Determine the output filenames using job title + company:
+    - <job_title>_<company_name>_Resume.txt
+    - <job_title>_<company_name>_Resume.pdf
+
+10. Write the resume_text into the .txt file.
+
+11. Create a subagent named "pdf_agent".
+    - Pass resume_text to pdf_agent.
+    - Receive the generated PDF file.
+
+12. Send the final resume pdf file back to the user using senduserfile().
 """
 
 

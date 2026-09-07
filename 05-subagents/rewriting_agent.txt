@@ -2,15 +2,15 @@ REWRITING SUBAGENT
 
 Purpose:
 Generate a tailored resume using:
-- cv_text
-- job_description_text
-- scoring_data (JSON from scoring_agent)
-- guardrails
+   - cv_text
+   - job_description_text
+   - scoring_data (JSON from scoring_agent)
+   - guardrails
 
 Inputs:
-- cv_text: extracted text from the user's CV file.
-- job_description_text: job description text or file content.
-- scoring_data: JSON object containing matched_keywords, missing_keywords, extra_keywords, match_percentage.
+   - cv_text: extracted text from the user's CV file.
+   - job_description_text: job description text or file content.
+   - scoring_data: JSON object containing matched_keywords, missing_keywords, extra_keywords, match_percentage.
 
 Steps:
 1. Identify relevant content:
@@ -62,10 +62,10 @@ Steps:
    }
 
 Rules:
-- Do not invent experience, skills, or achievements.
-- Do not modify identity details.
-- Do not hallucinate.
-- Only use content that exists in the CV.
-- Removal is allowed only for irrelevant content.
-- Rewriting must be based strictly on CV content.
-- Tailoring must align with job_description_text.
+   - Do not invent experience, skills, or achievements.
+   - Do not modify identity details.
+   - Do not hallucinate.
+   - Only use content that exists in the CV.
+   - Removal is allowed only for irrelevant content.
+   - Rewriting must be based strictly on CV content.
+   - Tailoring must align with job_description_text.
